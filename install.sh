@@ -39,40 +39,30 @@ log_error() { log_message "ERROR" "$@"; }
 init_logging
 log_info "Mirza installer initialized (PID $$)"
 type_text() {
-    local text="$1"
-    local delay="${2:-0.03}"
-    local i=0
-    while [ $i -lt ${#text} ]; do
-        echo -n "${text:$i:1}"
-        sleep "$delay"
-        ((i++))
-    done
+    echo -n "$1"
     echo ""
 }
 
 type_text_colored() {
     local color="$1"
     local text="$2"
-    local delay="${3:-0.03}"
-    echo -ne "$color"
-    type_text "$text" "$delay"
-    echo -ne "\033[0m"
+    echo -ne "${color}${text}\033[0m"
+    echo ""
 }
 
 function show_animated_logo() {
     clear
     echo ""
-    sleep 0.05
-    type_text_colored "\033[1;32m" "███╗░░░███╗ ██╗ ██████╗░ ███████╗ ░█████╗░ ██████╗░ ██████╗░ ░█████╗░" 0.003
-    type_text_colored "\033[1;32m" "████╗░████║ ██║ ██╔══██╗ ╚════██║ ██╔══██╗ ██╔══██╗ ██╔══██╗ ██╔══██╗" 0.003
-    type_text_colored "\033[1;37m" "██╔████╔██║ ██║ ██████╔╝ ░░███╔═╝ ███████║ ██████╔╝ ██████╔╝ ██║░░██║" 0.003
-    type_text_colored "\033[1;37m" "██║╚██╔╝██║ ██║ ██╔══██╗ ██╔══╝░░ ██╔══██║ ██╔═══╝░ ██╔══██╗ ██║░░██║" 0.003
-    type_text_colored "\033[1;31m" "██║░╚═╝░██║ ██║ ██║░░██║ ███████╗ ██║░░██║ ██║░░░░░ ██║░░██║ ╚█████╔╝" 0.003
-    type_text_colored "\033[1;31m" "╚═╝░░░░░╚═╝ ╚═╝ ╚═╝░░╚═╝ ╚══════╝ ╚═╝░░╚═╝ ╚═╝░░░░░ ╚═╝░░╚═╝ ░╚════╝░" 0.003
+    echo -e "\033[1;32m███╗░░░███╗ ██╗ ██████╗░ ███████╗ ░█████╗░ ██████╗░ ██████╗░ ░█████╗░\033[0m"
+    echo -e "\033[1;32m████╗░████║ ██║ ██╔══██╗ ╚════██║ ██╔══██╗ ██╔══██╗ ██╔══██╗ ██╔══██╗\033[0m"
+    echo -e "\033[1;37m██╔████╔██║ ██║ ██████╔╝ ░░███╔═╝ ███████║ ██████╔╝ ██████╔╝ ██║░░██║\033[0m"
+    echo -e "\033[1;37m██║╚██╔╝██║ ██║ ██╔══██╗ ██╔══╝░░ ██╔══██║ ██╔═══╝░ ██╔══██╗ ██║░░██║\033[0m"
+    echo -e "\033[1;31m██║░╚═╝░██║ ██║ ██║░░██║ ███████╗ ██║░░██║ ██║░░░░░ ██║░░██║ ╚█████╔╝\033[0m"
+    echo -e "\033[1;31m╚═╝░░░░░╚═╝ ╚═╝ ╚═╝░░╚═╝ ╚══════╝ ╚═╝░░╚═╝ ╚═╝░░░░░ ╚═╝░░╚═╝ ░╚════╝░\033[0m"
     echo ""
-    type_text_colored "\033[1;33m" "                    mirzaPro Bot Installer v3.9" 0.015
-    type_text_colored "\033[1;36m" "                    Developer: liwyd" 0.015
-    type_text_colored "\033[1;36m" "                    Repository: github.com/Liwyd/mirzaPro" 0.015
+    echo -e "\033[1;33m                    mirzaPro Bot Installer v3.9\033[0m"
+    echo -e "\033[1;36m                    Developer: liwyd\033[0m"
+    echo -e "\033[1;36m                    Repository: github.com/Liwyd/mirzaPro\033[0m"
     echo ""
 }
 
@@ -400,9 +390,9 @@ function show_menu() {
     show_logo
     check_ssl_status
 
-    type_text_colored "\033[1;32m" "╔════════════════════════════════════════════════╗" 0.005
-    type_text_colored "\033[1;32m" "║            MIRZAPRO - MAIN MENU                ║" 0.005
-    type_text_colored "\033[1;32m" "╠════════════════════════════════════════════════╣" 0.005
+    echo -e "\033[1;32m╔════════════════════════════════════════════════╗\033[0m"
+    echo -e "\033[1;32m║            MIRZAPRO - MAIN MENU                ║\033[0m"
+    echo -e "\033[1;32m╠════════════════════════════════════════════════╣\033[0m"
     print_menu_spacer
     print_menu_option "1)" "Install mirzaPro Bot"
     print_menu_option "2)" "Update mirzaPro Bot"
@@ -417,7 +407,7 @@ function show_menu() {
     print_menu_option "11)" "Remove Domain" "1;31"
     print_menu_option "12)" "Delete Cron Jobs" "1;31"
     print_menu_option "13)" "Exit" "1;31"
-    type_text_colored "\033[1;32m" "╚════════════════════════════════════════════════╝" 0.005
+    echo -e "\033[1;32m╚════════════════════════════════════════════════╝\033[0m"
     echo ""
     read -p "$(echo -e '\033[1;33m❯\033[0m Select an option [1-13]: ')" option
     case $option in
