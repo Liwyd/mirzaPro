@@ -719,13 +719,17 @@ function install_bot() {
         exit 1
     fi
 
-    ZIP_URL=$(curl -s https://api.github.com/repos/Liwyd/mirzaPro/releases/latest | grep "zipball_url" | cut -d '"' -f 4)
-
-if [[ "$1" == "-v" && "$2" == "beta" ]] || [[ "$1" == "-beta" ]] || [[ "$1" == "-" && "$2" == "beta" ]]; then
-    ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/heads/main.zip"
-elif [[ "$1" == "-v" && -n "$2" ]]; then
-    ZIP_URL="https://github.com/Liwyd/mirzaPro/mirza_pro/archive/refs/tags/$2.zip"
-fi
+    if [[ "$1" == "-v" && "$2" == "beta" ]] || [[ "$1" == "-beta" ]] || [[ "$1" == "-" && "$2" == "beta" ]]; then
+        ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/heads/main.zip"
+    elif [[ "$1" == "-v" && -n "$2" ]]; then
+        ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/tags/$2.zip"
+    else
+        ZIP_URL=$(curl -s https://api.github.com/repos/Liwyd/mirzaPro/releases/latest | grep "zipball_url" | cut -d '"' -f 4)
+        if [ -z "$ZIP_URL" ]; then
+            echo -e "\e[33mNo releases found, downloading from main branch...\033[0m"
+            ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/heads/main.zip"
+        fi
+    fi
 
     TEMP_DIR="/tmp/mirzabot"
     mkdir -p "$TEMP_DIR"
@@ -1290,11 +1294,16 @@ function install_bot_with_marzban() {
         exit 1
     }
 
-    ZIP_URL=$(curl -s https://api.github.com/repos/Liwyd/mirzaPro/releases/latest | grep "zipball_url" | cut -d '"' -f 4)
     if [[ "$1" == "-v" && "$2" == "beta" ]] || [[ "$1" == "-beta" ]] || [[ "$1" == "-" && "$2" == "beta" ]]; then
         ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/heads/main.zip"
     elif [[ "$1" == "-v" && -n "$2" ]]; then
         ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/tags/$2.zip"
+    else
+        ZIP_URL=$(curl -s https://api.github.com/repos/Liwyd/mirzaPro/releases/latest | grep "zipball_url" | cut -d '"' -f 4)
+        if [ -z "$ZIP_URL" ]; then
+            echo -e "\e[33mNo releases found, downloading from main branch...\033[0m"
+            ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/heads/main.zip"
+        fi
     fi
 
     TEMP_DIR="/tmp/mirzabot"
@@ -1563,6 +1572,10 @@ function update_bot() {
         ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/heads/main.zip"
     else
         ZIP_URL=$(curl -s https://api.github.com/repos/Liwyd/mirzaPro/releases/latest | grep "zipball_url" | cut -d '"' -f4)
+        if [ -z "$ZIP_URL" ]; then
+            echo -e "\e[33mNo releases found, downloading from main branch...\033[0m"
+            ZIP_URL="https://github.com/Liwyd/mirzaPro/archive/refs/heads/main.zip"
+        fi
     fi
 
     TEMP_DIR="/tmp/mirzabot_update"
