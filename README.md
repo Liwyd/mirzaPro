@@ -129,3 +129,13 @@ This project is licensed under AGPL-3.0 / این پروژه تحت مجوز AGPL
 **Made with heart / ساخته شده با عشق**
 
 </div>
+
+---
+
+## Disclaimer
+
+> **This repository is a backup mirror.** The original code is developed by [Mmd-Amir](https://github.com/Mmd-Amir/mirza_pro). This clone is maintained solely to preserve a safe copy in case the original author decides to remove or delete it. All credit for the code goes to the original developer.
+
+## سلب مسئولیت
+
+> **این ریپازیتوری یک نسخه پشتیبان (آینه) است.** کد اصلی توسط [Mmd-Amir](https://github.com/Mmd-Amir/mirza_pro) توسعه داده شده است. این کلون صرفاً برای حفظ یک نسخه امن نگه‌داری می‌شود، در صورتی که ناشر اصلی تصمیم به حذف یا پاک‌سازی ریپازیتوری خود بگیرد. تمامی حقوق کد متعلق به توسعه‌دهنده اصلی است.
